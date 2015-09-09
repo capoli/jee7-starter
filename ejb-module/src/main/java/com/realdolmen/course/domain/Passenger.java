@@ -23,6 +23,7 @@ public class Passenger implements Serializable {
     @Basic(optional = false)
     @Column(updatable = false)
     @Temporal(TemporalType.DATE)
+    @Access(value = AccessType.PROPERTY)
     private Date dateOfBirth;
     @Transient
     private Integer age;
@@ -49,7 +50,8 @@ public class Passenger implements Serializable {
     public int calculateAge() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateOfBirth);
-        return cal.get(Calendar.YEAR) - 1900;
+        Calendar now = Calendar.getInstance();
+        return now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
     }
 
     public Long getId() {
@@ -114,6 +116,7 @@ public class Passenger implements Serializable {
     }
 
     public Integer getAge() {
+        if(age == null) calculateAge();
         return age;
     }
 }
