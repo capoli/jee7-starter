@@ -1,25 +1,28 @@
 package com.realdolmen.course.persistence;
 
 import com.realdolmen.course.domain.Book;
+import com.realdolmen.course.domain.Passenger;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * Created by OCPAX79 on 9/09/2015.
+ */
 @Stateless
 @LocalBean
-public class BookRepository implements RemoteBookRepository {
+public class PassengerRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Book> findAll() {
-        return entityManager.createQuery("select b from Book b", Book.class).getResultList();
+    public List<Passenger> findAll() {
+        return entityManager.createQuery("select p from Passenger p", Passenger.class).getResultList();
     }
 
     public void remove(int id) {
-        entityManager.remove(entityManager.getReference(Book.class, id));
+        entityManager.remove(entityManager.getReference(Passenger.class, id));
     }
 }
