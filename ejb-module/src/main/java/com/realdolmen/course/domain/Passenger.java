@@ -41,11 +41,15 @@ public class Passenger implements Serializable {
         this.lastName = lastName;
         this.frequentFlyerMiles = frequentFlyerMiles;
         this.dateOfBirth = dateOfBirth;
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(dateOfBirth);
-        this.age = cal.get(Calendar.YEAR) - 1900;
+        this.age = calculateAge();
         this.passengerType = passengerType;
         this.lastFlight = lastFlight;
+    }
+
+    public int calculateAge() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateOfBirth);
+        return cal.get(Calendar.YEAR) - 1900;
     }
 
     public Long getId() {
@@ -82,6 +86,35 @@ public class Passenger implements Serializable {
 
     public void setFrequentFlyerMiles(Integer frequentFlyerMiles) {
         this.frequentFlyerMiles = frequentFlyerMiles;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        this.age = calculateAge();
+    }
+
+    public PassengerType getPassengerType() {
+        return passengerType;
+    }
+
+    public void setPassengerType(PassengerType passengerType) {
+        this.passengerType = passengerType;
+    }
+
+    public Date getLastFlight() {
+        return lastFlight;
+    }
+
+    public void setLastFlight(Date lastFlight) {
+        this.lastFlight = lastFlight;
+    }
+
+    public Integer getAge() {
+        return age;
     }
 }
 
