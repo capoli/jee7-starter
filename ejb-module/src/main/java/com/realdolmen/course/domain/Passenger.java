@@ -1,9 +1,9 @@
 package com.realdolmen.course.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by OCPAX79 on 9/09/2015.
@@ -12,19 +12,40 @@ import java.io.Serializable;
 public class Passenger implements Serializable {
     @Id @GeneratedValue
     private Long id;
+    @Basic(optional = false)
+    @Column(updatable = false)
     private String ssn;
+    @Column(length = 50)
     private String firstName;
+    @Column(length = 50)
     private String lastName;
     private Integer frequentFlyerMiles;
+    @Basic(optional = false)
+    @Column(updatable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+    @Transient
+    private Integer age;
+    @Basic(optional = false)
+    @Enumerated(EnumType.STRING)
+    private PassengerType passengerType;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastFlight;
 
     public Passenger() {
     }
 
-    public Passenger(String ssn, String firstName, String lastName, Integer frequentFlyerMiles) {
+    public Passenger(String ssn, String firstName, String lastName, Integer frequentFlyerMiles, Date dateOfBirth, PassengerType passengerType, Date lastFlight) {
         this.ssn = ssn;
         this.firstName = firstName;
         this.lastName = lastName;
         this.frequentFlyerMiles = frequentFlyerMiles;
+        this.dateOfBirth = dateOfBirth;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dateOfBirth);
+        this.age = cal.get(Calendar.YEAR) - 1900;
+        this.passengerType = passengerType;
+        this.lastFlight = lastFlight;
     }
 
     public Long getId() {
@@ -63,3 +84,4 @@ public class Passenger implements Serializable {
         this.frequentFlyerMiles = frequentFlyerMiles;
     }
 }
+
