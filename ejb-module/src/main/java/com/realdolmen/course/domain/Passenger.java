@@ -1,42 +1,44 @@
 package com.realdolmen.course.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by OCPAX79 on 9/09/2015.
  */
 @Entity
+@Table(name = "passenger")
+@SecondaryTable(name = "passengerinfo")
 public class Passenger implements Serializable {
-    @Id @GeneratedValue
-    private Long id;
-    private String ssn;
+    @EmbeddedId
+    private PassengerId id;
     private String firstName;
-    private String lastName;
+    @Column(table = "passengerinfo")
     private Integer frequentFlyerMiles;
+    @Column(table = "passengerinfo")
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] picture;
 
     public Passenger() {
     }
 
+    public Passenger(String ssn, String firstName, String lastName, Integer frequentFlyerMiles, byte[] picture) {
+        this(ssn, firstName, lastName, frequentFlyerMiles);
+        this.picture = picture;
+    }
+
     public Passenger(String ssn, String firstName, String lastName, Integer frequentFlyerMiles) {
-        this.ssn = ssn;
+        this.id = new PassengerId(ssn, lastName);
         this.firstName = firstName;
-        this.lastName = lastName;
         this.frequentFlyerMiles = frequentFlyerMiles;
     }
 
-    public Long getId() {
+    public PassengerId getId() {
         return id;
     }
 
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    public void setId(PassengerId id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -47,14 +49,6 @@ public class Passenger implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public Integer getFrequentFlyerMiles() {
         return frequentFlyerMiles;
     }
@@ -62,4 +56,13 @@ public class Passenger implements Serializable {
     public void setFrequentFlyerMiles(Integer frequentFlyerMiles) {
         this.frequentFlyerMiles = frequentFlyerMiles;
     }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 }
+
