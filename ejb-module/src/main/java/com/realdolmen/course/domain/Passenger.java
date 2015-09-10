@@ -43,6 +43,8 @@ public class Passenger implements Serializable {
     @ElementCollection
     @CollectionTable(name = "preference")
     private List<String> preferences = new ArrayList<>();
+    @OneToMany(mappedBy = "passenger")
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Passenger() {
     }
@@ -161,6 +163,14 @@ public class Passenger implements Serializable {
 
     public void addPreference(String preference) {
         preferences.add(preference);
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void addTicket(Ticket ticket) {
+        tickets.add(ticket);
     }
 }
 
