@@ -1,9 +1,14 @@
 package com.realdolmen.course.persistence;
 
+import com.realdolmen.course.domain.DomesticFlight;
+import com.realdolmen.course.domain.Flight;
+import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.Ticket;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.Date;
 
 /**
  * Created by OCPAX79 on 10/09/2015.
@@ -19,17 +24,30 @@ public class TicketPersistenceTest extends DataSetPersistenceTest {
         assertNotNull(ticket.getId());
     }
 
+    @Test
     public void flightCanBeAssignedToATicket() {
-        //TODO
+        Flight flight = new DomesticFlight("001", new Date(), new Date(), "Jetair");
+        Ticket ticket = entityManager().find(Ticket.class, 1000l);
+        ticket.setFlight(flight);
+        entityManager().persist(flight);
+        entityManager().persist(ticket);
+        entityManager().flush();
+        assertNotNull(ticket.getFlight());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void passengerCanBeAssignedToATicket() {
+    public void ticketPriceMustNotBeNegative() {
         Ticket ticket = new Ticket(-5.0);
         entityManager().persist(ticket);
     }
 
-    public void ticketPriceMustNotBeNegative() {
-        //TODO
+    @Test
+    public void passengerCanBeAssignedToATicket() {
+        Ticket ticket = entityManager().find(Ticket.class, 1000l);
+        Passenger passenger = entityManager().find(Passenger.class, 1000l);
+        ticket.setPassenger(passenger);
+        entityManager().persist(ticket);
+        entityManager().flush();
+        assertNotNull(passenger.getTickets().get(0));
     }
 }

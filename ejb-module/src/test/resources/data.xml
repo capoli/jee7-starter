@@ -15,4 +15,9 @@
     <creditcard Passenger_id="1000" number="900 500 555 430" expiryDate="06-2019" controlNumber="542" type="MASTER" />
     <creditcard Passenger_id="2000" number="900 700 555 430" expiryDate="06-2019" controlNumber="542" type="VISA" />
     <creditcard Passenger_id="2000" number="900 700 555 430" expiryDate="06-2019" controlNumber="542" type="AMEX" />
+    <ticket id="1000" price="50.0" />
+    <flight id="1000" number="e500" departureTime="2015-06-06 02:30:50.000" arrivalTime="2015-06-06 03:30:50.000" />
+    <flight id="2000" number="e600" departureTime="2015-07-06 02:30:50.000" arrivalTime="2015-07-06 03:30:50.000" />
+    <domesticflight id="1000" airlineCompany="jetair" />
+    <internationalflight id="2000" blacklist="0" regulations="can't be a terrorist" />
 </dataset>

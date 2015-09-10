@@ -10,7 +10,8 @@ import java.util.List;
  * Created by OCPAX79 on 10/09/2015.
  */
 @Entity
-public class Flight implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Flight extends AbstractEntity implements Serializable {
     @Id @GeneratedValue
     private Long id;
     private String number;
@@ -25,6 +26,7 @@ public class Flight implements Serializable {
     }
 
     public Flight(String number, Date departureTime, Date arrivalTime) {
+        super("it's working");
         this.number = number;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
