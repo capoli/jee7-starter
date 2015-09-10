@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by OCPAX79 on 9/09/2015.
@@ -32,6 +33,12 @@ public class Passenger implements Serializable {
     private PassengerType passengerType;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastFlight;
+    @Embedded
+    private Address address;
+    @ElementCollection
+    @CollectionTable(name = "creditcard")
+    @MapKeyColumn(name = "number")
+    private List<CreditCard> creditCards;
 
     public Passenger() {
     }

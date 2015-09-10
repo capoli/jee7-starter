@@ -2,6 +2,17 @@
     <book id="1000" author="George Orwell" title="Nineteen Eighty Four" genre="fiction"/>
     <book id="2000" author="Aldous Huxley" title="Brave New World" genre="fiction"/>
     <book id="3000" author="Bram Stoker" title="Dracula" genre="fiction"/>
-    <passenger id="1000" ssn="001" firstName="gert" lastName="verhulst" frequentFlyerMiles="60" dateOfBirth="1991-12-21 02:00:00.000" passengerType="REGULAR" lastFlight="2015-04-12 15:03:22.000"/>
-    <passenger id="2000" ssn="002" firstName="erik" lastName="vanloy" frequentFlyerMiles="60" dateOfBirth="1992-08-21 02:00:00.000" passengerType="OCCASIONAL" lastFlight="2015-06-12 15:03:22.000"/>
+    <passenger id="1000" ssn="001" firstName="gert" lastName="verhulst" frequentFlyerMiles="60"
+               dateOfBirth="1991-12-21 02:00:00.000" passengerType="REGULAR"
+               lastFlight="2015-04-12 15:03:22.000" street1="de burletlaan 55" city="wilrijk"
+               zipCode="2610" country="belgie"/>
+    <passenger id="2000" ssn="002" firstName="erik" lastName="vanloy"
+               frequentFlyerMiles="60" dateOfBirth="1992-08-21 02:00:00.000"
+               passengerType="OCCASIONAL" lastFlight="2015-06-12 15:03:22.000"
+               street1="nationalestraat 55" city="antwerpen"
+               zipCode="2000" country="belgie"/>
+    <creditcard Passenger_id="1000" number="900 000 555 430" expiryDate="06-2019" controlNumber="542" type="VISA" />
+    <creditcard Passenger_id="1000" number="900 500 555 430" expiryDate="06-2019" controlNumber="542" type="MASTER" />
+    <creditcard Passenger_id="2000" number="900 700 555 430" expiryDate="06-2019" controlNumber="542" type="VISA" />
+    <creditcard Passenger_id="2000" number="900 700 555 430" expiryDate="06-2019" controlNumber="542" type="AMEX" />
 </dataset>
