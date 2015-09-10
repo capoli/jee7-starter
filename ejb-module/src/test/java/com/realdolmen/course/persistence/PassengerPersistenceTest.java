@@ -1,7 +1,6 @@
 package com.realdolmen.course.persistence;
 
-import com.realdolmen.course.domain.Passenger;
-import com.realdolmen.course.domain.PassengerType;
+import com.realdolmen.course.domain.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -30,5 +29,21 @@ public class PassengerPersistenceTest extends DataSetPersistenceTest {
     @Test
     public void passengerHasCorrectAge() {
         assertEquals(new Integer(24), entityManager().find(Passenger.class, 1000l).getAge());
+    }
+
+    @Test
+    public void passengerWithAddressCanBePersisted() {
+        Passenger passenger = new Passenger("003", "rafael", "nadal", 70, new Date(809913600), PassengerType.OCCASIONAL, new Date(1409529600));
+        passenger.setAddress(new Address("frans birontlaan 87", "", "berchem", "2600", "belgie"));
+        entityManager().persist(passenger);
+        assertNotNull(passenger.getAddress());
+    }
+
+    @Test
+    public void passengerWithCreditCardCanBePersisted() {
+        Passenger passenger = new Passenger("003", "rafael", "nadal", 70, new Date(809913600), PassengerType.OCCASIONAL, new Date(1409529600));
+        passenger.addCreditCard(new CreditCard("500 432 787 400", "08-201800", 847, CreditCardType.MASTER));
+        entityManager().persist(passenger);
+        assertNotNull(passenger.getCreditCards().get(0));
     }
 }
