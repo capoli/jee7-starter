@@ -41,7 +41,7 @@ public class TicketPersistenceTest extends DataSetPersistenceTest {
         entityManager().persist(ticket);
     }
 
-    @Test
+
     public void passengerCanBeAssignedToATicket() {
 //        Ticket ticket = entityManager().find(Ticket.class, 1000l);
 //        Passenger passenger = entityManager().find(Passenger.class, 2000l);
@@ -52,6 +52,6 @@ public class TicketPersistenceTest extends DataSetPersistenceTest {
 //        entityManager().flush();
 //        assertEquals(1, passenger.getTickets().size());
 //        assertEquals(passenger.getId(), ticket.getPassenger().getId());
-        assertEquals(true, true);
+        //TODO
     }
 }
