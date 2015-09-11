@@ -25,7 +25,7 @@ public class Passenger implements Serializable {
     @Basic(optional = false)
     @Column(updatable = false)
     @Temporal(TemporalType.DATE)
-    @Access(value = AccessType.PROPERTY)
+    //@Access(value = AccessType.PROPERTY)
     private Date dateOfBirth;
     @Transient
     private Integer age;
@@ -45,6 +45,7 @@ public class Passenger implements Serializable {
     private List<String> preferences = new ArrayList<>();
     @OneToMany(mappedBy = "passenger")
     private List<Ticket> tickets = new ArrayList<>();
+    private Date dateLastUpdated;
 
     public Passenger() {
     }
@@ -55,16 +56,25 @@ public class Passenger implements Serializable {
         this.lastName = lastName;
         this.frequentFlyerMiles = frequentFlyerMiles;
         this.dateOfBirth = dateOfBirth;
-        this.age = calculateAge();
+        //this.age = calculateAge();
         this.passengerType = passengerType;
         this.lastFlight = lastFlight;
     }
 
-    public int calculateAge() {
+    @PrePersist
+    @PreUpdate
+    private void updateDateLastUpdated() {
+        dateLastUpdated = new Date();
+    }
+
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    public void calculateAge() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateOfBirth);
         Calendar now = Calendar.getInstance();
-        return now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
+        age = now.get(Calendar.YEAR) - cal.get(Calendar.YEAR);
     }
 
     public Long getId() {
@@ -109,7 +119,7 @@ public class Passenger implements Serializable {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-        this.age = calculateAge();
+        //calculateAge();
     }
 
     public PassengerType getPassengerType() {
