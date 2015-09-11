@@ -19,6 +19,7 @@ public class DomesticFlightPersistenceTest extends DataSetPersistenceTest {
     public void testDomesticFlightCanBePersisted() {
         Flight flight = new DomesticFlight("001", new Date(), new Date(), "Jetair");
         entityManager().persist(flight);
+        //flight = persistFlushAndClear(flight);
         assertNotNull(flight.getId());
     }
 }

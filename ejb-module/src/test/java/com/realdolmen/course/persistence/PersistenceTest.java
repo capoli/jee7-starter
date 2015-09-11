@@ -1,13 +1,14 @@
 package com.realdolmen.course.persistence;
 
+import org.apache.poi.ss.formula.functions.T;
+import org.jboss.com.sun.corba.se.spi.ior.Identifiable;
 import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -99,4 +100,18 @@ public abstract class PersistenceTest extends Assert {
         Map<String, String> properties = properties();
         return DriverManager.getConnection(properties.get(URL), properties.get(USER), properties.get(PASSWORD));
     }
+
+    /*protected <T extends Identifiable>T persistFlushAndClear(T entity) {
+        try {
+            Method getId = entity.getClass().getMethod("getId");
+            getId.setAccessible(true);
+            getId.invoke(entity);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new PersistenceException("Class not entity", e);
+        }
+        entityManager().persist(entity);
+        entityManager().flush();
+        entityManager().clear();
+        return entityManager().find((Class<T> )entity.getClass(), entity.getId());
+    }*/
 }
