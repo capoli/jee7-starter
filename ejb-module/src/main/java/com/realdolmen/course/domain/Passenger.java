@@ -38,7 +38,8 @@ public class Passenger implements Serializable {
     private Address address;
     @ElementCollection
     @CollectionTable(name = "creditcard")
-    @MapKeyColumn(name = "number")
+    @Column(name = "card")
+    //@MapKeyColumn(name = "number")
     private List<CreditCard> creditCards = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "preference")
@@ -155,12 +156,12 @@ public class Passenger implements Serializable {
         return creditCards;
     }
 
-    public void setCreditCards(List<CreditCard> creditCards) {
-        this.creditCards = creditCards;
-    }
-
     public void addCreditCard(CreditCard creditCard) {
         creditCards.add(creditCard);
+    }
+
+    public void clearCreditCards() {
+        creditCards = null;
     }
 
     public List<String> getPreferences() {
@@ -181,6 +182,13 @@ public class Passenger implements Serializable {
 
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
+    }
+
+    public void clearTickets() {
+        for(Ticket t : tickets) {
+            t.setPassenger(null);
+        }
+        tickets = null;
     }
 }
 

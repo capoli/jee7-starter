@@ -46,8 +46,10 @@ public class TicketPersistenceTest extends DataSetPersistenceTest {
         Ticket ticket = entityManager().find(Ticket.class, 1000l);
         Passenger passenger = entityManager().find(Passenger.class, 1000l);
         ticket.setPassenger(passenger);
+        passenger.addTicket(ticket);
         entityManager().persist(ticket);
         entityManager().flush();
         assertNotNull(passenger.getTickets().get(0));
+        assertEquals(passenger.getId(), ticket.getPassenger().getId());
     }
 }
