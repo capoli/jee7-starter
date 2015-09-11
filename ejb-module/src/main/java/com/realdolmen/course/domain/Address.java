@@ -1,12 +1,13 @@
 package com.realdolmen.course.domain;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * Created by OCPAX79 on 10/09/2015.
  */
 @Embeddable
-public class Address {
+public class Address implements Serializable {
     private String street1;
     private String street2;
     private String city;

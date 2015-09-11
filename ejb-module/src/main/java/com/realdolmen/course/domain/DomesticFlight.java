@@ -14,7 +14,7 @@ import java.util.List;
 public class DomesticFlight extends Flight {
     private String airlineCompany;
     @ElementCollection
-    @CollectionTable(name = "refs")
+    @CollectionTable(name = "ref")
     private List<String> references = new ArrayList<>();
 
     public DomesticFlight(String number, Date departureTime, Date arrivalTime, String airlineCompany) {

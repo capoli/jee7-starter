@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class PassengerRepository {
+public class PassengerRepository implements RemotePassengerRepository {
     @PersistenceContext
     EntityManager entityManager;
 

@@ -3,12 +3,13 @@ package com.realdolmen.course.domain;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.io.Serializable;
 
 /**
  * Created by OCPAX79 on 10/09/2015.
  */
 @Embeddable
-public class CreditCard {
+public class CreditCard implements Serializable {
     private String number;
     private String expiryDate;
     private Integer controlNumber;

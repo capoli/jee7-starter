@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 public class Passenger implements Serializable {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Basic(optional = false)
     @Column(updatable = false)
@@ -38,7 +38,6 @@ public class Passenger implements Serializable {
     private Address address;
     @ElementCollection
     @CollectionTable(name = "creditcard")
-    @Column(name = "card")
     //@MapKeyColumn(name = "number")
     private List<CreditCard> creditCards = new ArrayList<>();
     @ElementCollection

@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 public class Ticket implements Serializable {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Access(value = AccessType.PROPERTY)
     @Basic(optional = false)
