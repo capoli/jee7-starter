@@ -61,6 +61,12 @@ public class Passenger implements Serializable {
         this.lastFlight = lastFlight;
     }
 
+    public Passenger(String ssn, String firstName, String lastName) {
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @PrePersist
     @PreUpdate
     private void updateDateLastUpdated() {
