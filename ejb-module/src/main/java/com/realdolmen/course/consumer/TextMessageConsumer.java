@@ -4,9 +4,12 @@ package com.realdolmen.course.consumer;
 import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.Ticket;
+import com.realdolmen.course.persistence.TicketService;
 
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import javax.ejb.TimerService;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -18,8 +21,10 @@ import javax.persistence.PersistenceContext;
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "java:jboss/exported/jms/queue/MyQueue"),
 })
 public class TextMessageConsumer implements MessageListener {
-    @PersistenceContext
-    private EntityManager em;
+    /*@PersistenceContext
+    private EntityManager em;*/
+    @EJB
+    private TicketService ticketService;
 
     @Override
     public void onMessage(Message message) {
@@ -33,13 +38,13 @@ public class TextMessageConsumer implements MessageListener {
                 String[] strings = line.split(",");
                 System.out.println("**********************");
                 if(strings[0].equalsIgnoreCase("null")) {
-                    createTicket(
+                    ticketService.createTicket(
                             Double.parseDouble(strings[1]),
                             Long.parseLong(strings[3]),
                             Long.parseLong(strings[4]));
                 }
                 else {
-                    updateTicket(
+                    ticketService.updateTicket(
                             Long.parseLong(strings[0]),
                             Double.parseDouble(strings[1]));
                 }
@@ -50,7 +55,7 @@ public class TextMessageConsumer implements MessageListener {
         }
     }
 
-    private void createTicket(Double price, Long flightId, Long passengerId) {
+    /*private void createTicket(Double price, Long flightId, Long passengerId) {
         Ticket ticket = new Ticket(price);
         ticket.setFlight(em.find(Flight.class,flightId));
         ticket.setPassenger(em.find(Passenger.class, passengerId));
@@ -63,5 +68,5 @@ public class TextMessageConsumer implements MessageListener {
         ticket.setPrice(price);
         //em.persist(ticket);
         System.out.println("Update ticket");
-    }
+    }*/
 }
