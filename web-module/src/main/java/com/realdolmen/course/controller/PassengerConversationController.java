@@ -1,10 +1,9 @@
 package com.realdolmen.course.controller;
 
-import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.PassengerType;
-import com.realdolmen.course.persistence.FlightEJB;
 import com.realdolmen.course.persistence.PassengerEJB;
+import com.realdolmen.course.persistence.PassengerNamedBean;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
@@ -15,58 +14,47 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by OCPAX79 on 15/09/2015.
+ * Created by OCPAX79 on 16/09/2015.
  */
 @Named
 @RequestScoped
-public class PassengerController implements Serializable {
+public class PassengerConversationController implements Serializable {
     @EJB
     PassengerEJB passengerEJB;
-    @EJB
-    FlightEJB flightEJB;
 
-    private Passenger passenger = new Passenger();
+    @Inject
+    private Conversation conversation;
+
+    @Inject
+    @PassengerNamedBean
+    private Passenger passenger;
+
     private String selectedPassengerType;
 
-    public List<Passenger> getAllPassengers() {
-        return passengerEJB.findPassengers();
+    //start conversation
+    public String startConversation() {
+        conversation.begin();
+        return "passengerCreateConversation";
     }
 
-    public String create() {
+    //for conversation
+    public String createPassengerForConversation() {
         passenger.setDateOfBirth(new Date());
         passenger.setLastFlight(new Date());
 
         PassengerType passengerType = Enum.valueOf(PassengerType.class, selectedPassengerType);
         passenger.setPassengerType(passengerType);
+
+        return "confirmConversation";
+    }
+
+    //end conversation
+    public String confirmConversation() {
         passengerEJB.createPassenger(passenger);
+        conversation.end();
         return "passengers";
-    }
-
-    public Flight getFeaturedFlight() {
-        return flightEJB.getFeaturedFlight();
-    }
-
-    public List<String> getAllPassengerTypes() {
-        return passengerEJB.getPassengerTypes();
-    }
-
-    public PassengerEJB getPassengerEJB() {
-        return passengerEJB;
-    }
-
-    public void setPassengerEJB(PassengerEJB passengerEJB) {
-        this.passengerEJB = passengerEJB;
-    }
-
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
     }
 
     public String getSelectedPassengerType() {
@@ -75,5 +63,13 @@ public class PassengerController implements Serializable {
 
     public void setSelectedPassengerType(String selectedPassengerType) {
         this.selectedPassengerType = selectedPassengerType;
+    }
+
+    public PassengerEJB getPassengerEJB() {
+        return passengerEJB;
+    }
+
+    public void setPassengerEJB(PassengerEJB passengerEJB) {
+        this.passengerEJB = passengerEJB;
     }
 }
