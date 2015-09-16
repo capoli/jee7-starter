@@ -1,7 +1,9 @@
 package com.realdolmen.course.controller;
 
+import com.realdolmen.course.domain.Flight;
 import com.realdolmen.course.domain.Passenger;
 import com.realdolmen.course.domain.PassengerType;
+import com.realdolmen.course.persistence.FlightEJB;
 import com.realdolmen.course.persistence.PassengerEJB;
 
 import javax.ejb.EJB;
@@ -18,6 +20,8 @@ import java.util.List;
 public class PassengerController {
     @EJB
     PassengerEJB passengerEJB;
+    @EJB
+    FlightEJB flightEJB;
 
     private Passenger passenger = new Passenger();
     private String selectedPassengerType;
@@ -34,6 +38,10 @@ public class PassengerController {
         passenger.setPassengerType(passengerType);
         passengerEJB.createPassenger(passenger);
         return "passengers";
+    }
+
+    public Flight getFeaturedFlight() {
+        return flightEJB.getFeaturedFlight();
     }
 
     public List<String> getAllPassengerTypes() {
