@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="UTF-8"/>
+    <title>Create passenger</title>
+</h:head>
+<h:body>
+    <h1>Passengers</h1>
+    <p:dataTable value="#{passengerController.getAllPassengers()}" var="passenger">
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="ssn"/>
+            </f:facet>
+            <h:outputText value="#{passenger.ssn}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="firstname"/>
+            </f:facet>
+            <h:outputText value="#{passenger.firstName}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="lastname"/>
+            </f:facet>
+            <h:outputText value="#{passenger.lastName}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="passengerType"/>
+            </f:facet>
+            <h:outputText value="#{passenger.passengerType}"/>
+        </p:column>
+    </p:dataTable>
+    <h:form>
+        <p:link outcome="/passengerCreate.xhtml" value="Create new passenger"/>
+    </h:form>
+</h:body>
+</html>

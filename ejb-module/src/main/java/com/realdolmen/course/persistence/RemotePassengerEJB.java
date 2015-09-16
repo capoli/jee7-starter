@@ -15,4 +15,5 @@ public interface RemotePassengerEJB {
     Passenger createPassenger(Passenger passenger);
     void deletePassenger(Passenger passenger);
     Passenger updatePassenger(Passenger passenger);
+    List<String> getPassengerTypes();
 }

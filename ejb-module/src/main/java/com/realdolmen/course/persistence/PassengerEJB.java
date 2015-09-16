@@ -1,11 +1,13 @@
 package com.realdolmen.course.persistence;
 
 import com.realdolmen.course.domain.Passenger;
+import com.realdolmen.course.domain.PassengerType;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,5 +43,10 @@ public class PassengerEJB implements RemotePassengerEJB {
     @Override
     public Passenger updatePassenger(Passenger passenger) {
         return em.merge(passenger);
+    }
+
+    @Override
+    public List<String> getPassengerTypes() {
+         return (List) Arrays.asList(PassengerType.values());
     }
 }
