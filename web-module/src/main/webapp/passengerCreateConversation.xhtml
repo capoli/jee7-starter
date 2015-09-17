@@ -11,23 +11,23 @@
         <h:form>
             <div>
                 <p:outputLabel for="ssn" value="ssn:  "/>
-                <p:inputText id="ssn" value="#{passengerImpl.ssn}"/>
+                <p:inputText id="ssn" value="#{passengerConversationAltController.passenger.ssn}"/>
             </div>
             <div>
                 <p:outputLabel for="firstname" value="firstname:  "/>
-                <p:inputText id="firstname" value="#{passengerImpl.firstName}"/>
+                <p:inputText id="firstname" value="#{passengerConversationAltController.passenger.firstName}"/>
             </div>
             <div>
                 <p:outputLabel for="lastname" value="lastnam:  "/>
-                <p:inputText id="lastname" value="#{passengerImpl.lastName}"/>
+                <p:inputText id="lastname" value="#{passengerConversationAltController.passenger.lastName}"/>
             </div>
             <div>
                 <p:outputLabel for="passengerType" value="passengerType:  "/>
-                <p:selectOneMenu id="passengerType" value="#{passengerConversationController.selectedPassengerType}">
+                <p:selectOneMenu id="passengerType" value="#{passengerConversationAltController.selectedPassengerType}">
                     <f:selectItems value="#{passengerController.getAllPassengerTypes()}" var="type" itemLabel="#{type}" itemValue="#{type}" />
                 </p:selectOneMenu>
             </div>
-            <p:commandButton value="Create passenger" action="#{passengerConversationController.createPassengerForConversation()}"/>
+            <p:commandButton value="Create passenger" action="#{passengerConversationAltController.createPassengerForConversation()}"/>
         </h:form>
     </ui:define>
 </ui:composition>
